@@ -29,7 +29,7 @@ const indexRoute = require('./routes/index');
 
 
 app.use('/', indexRoute);
-app.use('/auth', authRoutes);
+app.use('/', authRoutes);
 
 // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
