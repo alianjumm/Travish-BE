@@ -26,10 +26,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const authRoutes = require("./routes/auth");
 const indexRoute = require('./routes/index');
+const wishListRoute = require('./routes/wishList');
 
 
-app.use('/', indexRoute);
-app.use('/', authRoutes);
 
 // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
@@ -44,17 +43,25 @@ mongoose.connect(process.env.mongoDBURL, {
     console.log("mongodb connected successfully!");
 });
 
-app.listen(PORT, () => console.log(`App is running on ${PORT}`));
+
+
+
+
+
 
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
+  
   // render the error page
   res.status(err.status || 500);
   res.render('error');
 });
+app.use('/', indexRoute);
+app.use('/', authRoutes);
+app.use('/', wishListRoute);
 
+app.listen(PORT, () => console.log(`App is running on ${PORT}`));
 module.exports = app;
