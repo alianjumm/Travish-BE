@@ -4,8 +4,6 @@ exports.wishList_create_post = (req, res) => {
     console.log(req.body);
 
     let wishList = new WishList(req.body);
-
-    // Save wishList
     wishList.save()
     .then((wishList) => {
         res.json({wishList})
@@ -24,22 +22,29 @@ exports.wishList_index_get = (req, res) => {
         console.log(err);
     });
 };
-exports.author_delete_get = (req, res) => {
+exports.wishList_delete_get = (req, res) => {
     console.log(req.query.id);
-    Author.findByIdAndDelete(req.query.id)
-    .then((author) => {
-        // res.redirect("/author/index")
-        res.json({author})
+    WishList.findByIdAndDelete(req.query.id)
+    .then((wishList) => {
+        res.json({wishList})
     })
     .catch(err => {
         console.log(err);
     })
 };
-exports.author_edit_get = (req, res) =>{
-    Author.findById(req.query.id)
-    .then((author) => {
-        // res.render("author/edit", {author})
-        res.json({author})
+exports.wishList_edit_get = (req, res) =>{
+    WishList.findById(req.query.id)
+    .then((wishList) => {
+        res.json({wishList})
+    })
+    .catch(err => {
+        console.log(err);
+    })
+};
+exports.wishList_update_put = (req, res) => {
+    WishList.findByIdAndUpdate(req.body._id, req.body, {new: true})
+    .then((wishList) => {
+        res.json({wishList})
     })
     .catch(err => {
         console.log(err);
