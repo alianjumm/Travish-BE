@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const isLoggedIn = require("../helper/isLoggedIn");
+
+
 const wishListCntrl = require('../controllers/wishList');   
 
-router.post("/wishList/add", wishListCntrl.wishList_create_post);
+router.post("/wishList/add", isLoggedIn, wishListCntrl.wishList_create_post);
 router.get("/wishList/index",  wishListCntrl.wishList_index_get);
 router.delete("/wishList/delete", wishListCntrl.wishList_delete_get);
 router.get("/wishList/edit", wishListCntrl.wishList_edit_get);
