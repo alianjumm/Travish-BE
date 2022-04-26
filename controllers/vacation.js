@@ -1,19 +1,8 @@
 const {Vacation} = require("../models/Vacation");
 
-const moment = require("moment");
-const { WishList } = require("../models/wishList");
+const WishList = require("../models/wishList");
 
-exports.vacation_create_get = (req, res) => {
 
-    WishList.find().populate('vacation')
-    .then((wishlist) => {
-        res.render('vacation/add', {wishlist});
-    })
-    .catch((err) => {
-        console.log(err);
-    })
-
-}
 
 exports.vacation_create_post = (req, res) => {
     console.log(req.body);
@@ -29,7 +18,7 @@ exports.vacation_create_post = (req, res) => {
               wishList.save();
               });
           });
-          res.redirect("/vacation/index");
+          res.json({vacation});
     })
     .catch((err) => {
         console.log(err);
@@ -39,7 +28,7 @@ exports.vacation_create_post = (req, res) => {
 exports.vacation_index_get = (req, res) => {
     Vacation.find().populate('wishlist')
     .then(vacations => {
-        res.render("vacation/index", {vacations: vacations, moment}) 
+        res.json({vacations}) 
     })
     .catch(err => {
         console.log(err);
@@ -51,7 +40,7 @@ exports.vacation_show_get = (req, res) => {
 
     Vacation.findById(req.query.id).populate('wishlist')
     .then(vacation => {
-        res.render("vacation/detail", {vacation, moment})
+        res.json({vacation})
     })
     .catch(err => {
         console.log(err);
@@ -61,8 +50,8 @@ exports.vacation_show_get = (req, res) => {
 exports.vacation_delete_get = (req, res) => {
     console.log(req.query.id);
     Vacation.findByIdAndDelete(req.query.id)
-    .then(() => {
-        res.redirect("vacation/index")
+    .then((vacation) => {
+        res.json({vacation})
     })
     .catch(err => {
         console.log(err);
@@ -72,7 +61,7 @@ exports.vacation_delete_get = (req, res) => {
 exports.vacation_edit_get = (req, res) =>{
     Vacation.findById(req.query.id)
     .then((vacation) => {
-        res.render("vacation/edit", {vacation})
+        res.json({vacation})
     })
     .catch(err => {
         console.log(err);
@@ -81,8 +70,8 @@ exports.vacation_edit_get = (req, res) =>{
 
 exports.vacation_update_put = (req, res) => {
     Vacation.findByIdAndUpdate(req.body.id, req.body)
-    .then(() => {
-        res.redirect("/vacation/index");
+    .then((vacation) => {
+        res.json({vacation})
     })
     .catch(err => {
         console.log(err);

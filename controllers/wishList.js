@@ -32,6 +32,17 @@ exports.wishList_delete_get = (req, res) => {
         console.log(err);
     })
 };
+exports.wishList_show_get = (req, res) => {
+    console.log(req.query.id);
+
+    WishList.findById(req.query.id).populate('vacation')
+    .then(wishList => {
+        res.json({wishList})
+    })
+    .catch(err => {
+        console.log(err);
+    });
+};
 exports.wishList_edit_get = (req, res) =>{
     WishList.findById(req.query.id)
     .then((wishList) => {
