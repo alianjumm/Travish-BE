@@ -1,4 +1,4 @@
-const WishList = require('../models/WishList');
+const {WishList} = require('../models/WishList');
 
 exports.wishList_create_post = (req, res) => {
     console.log(req.body);
@@ -6,7 +6,7 @@ exports.wishList_create_post = (req, res) => {
     let wishList = new WishList(req.body);
     wishList.save()
     .then((wishList) => {
-        res.json({wishList})
+        res.json(wishList)
     })
     .catch((err) => {
         console.log(err);
@@ -16,12 +16,26 @@ exports.wishList_create_post = (req, res) => {
 exports.wishList_index_get = (req, res) => {
     WishList.find()
     .then(wishLists => {
-        res.json({wishLists})
+        res.json(wishLists)
+    })
+    .catch(err => {
+        console.log(err);
+        res.json(err)
+    });
+};
+
+exports.wishList_show_get = (req, res) => {
+    console.log(req.query.id);
+
+    WishList.findById(req.query.id).populate('vacation')
+    .then(wishList => {
+        res.json({wishList})
     })
     .catch(err => {
         console.log(err);
     });
 };
+
 exports.wishList_delete_get = (req, res) => {
     console.log(req.query.id);
     WishList.findByIdAndDelete(req.query.id)
