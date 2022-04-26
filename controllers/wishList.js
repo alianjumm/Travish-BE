@@ -4,8 +4,6 @@ exports.wishList_create_post = (req, res) => {
     console.log(req.body);
 
     let wishList = new WishList(req.body);
-
-    // Save wishList
     wishList.save()
     .then((wishList) => {
         res.json({wishList})
@@ -23,4 +21,32 @@ exports.wishList_index_get = (req, res) => {
     .catch(err => {
         console.log(err);
     });
+};
+exports.wishList_delete_get = (req, res) => {
+    console.log(req.query.id);
+    WishList.findByIdAndDelete(req.query.id)
+    .then((wishList) => {
+        res.json({wishList})
+    })
+    .catch(err => {
+        console.log(err);
+    })
+};
+exports.wishList_edit_get = (req, res) =>{
+    WishList.findById(req.query.id)
+    .then((wishList) => {
+        res.json({wishList})
+    })
+    .catch(err => {
+        console.log(err);
+    })
+};
+exports.wishList_update_put = (req, res) => {
+    WishList.findByIdAndUpdate(req.body._id, req.body, {new: true})
+    .then((wishList) => {
+        res.json({wishList})
+    })
+    .catch(err => {
+        console.log(err);
+    })
 };
