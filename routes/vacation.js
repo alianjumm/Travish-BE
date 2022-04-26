@@ -1,10 +1,7 @@
 const express = require("express");
-var methodOverride = require('method-override')
 const isLoggedIn = require("../helper/isLoggedIn")
 
 const router = express.Router();
-
-router.use(methodOverride('_method'))
 
 const vacationCntrl = require("../controllers/vacation");
 
