@@ -24,3 +24,24 @@ exports.wishList_index_get = (req, res) => {
         console.log(err);
     });
 };
+exports.author_delete_get = (req, res) => {
+    console.log(req.query.id);
+    Author.findByIdAndDelete(req.query.id)
+    .then((author) => {
+        // res.redirect("/author/index")
+        res.json({author})
+    })
+    .catch(err => {
+        console.log(err);
+    })
+};
+exports.author_edit_get = (req, res) =>{
+    Author.findById(req.query.id)
+    .then((author) => {
+        // res.render("author/edit", {author})
+        res.json({author})
+    })
+    .catch(err => {
+        console.log(err);
+    })
+};
