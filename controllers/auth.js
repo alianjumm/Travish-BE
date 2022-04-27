@@ -87,9 +87,3 @@ exports.auth_signin_post = async (req, res) => {
   
   }
 
-  exports.auth_logout_get = (req, res) => {
-    
-    req.logout();
-    req.flash("success", "Your are successfully logged out");
-    res.redirect("/auth/signin");
-  }
