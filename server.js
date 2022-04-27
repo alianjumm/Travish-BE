@@ -35,13 +35,13 @@ const wishListRoute = require('./routes/wishList');
 //   next(createError(404));
 // });
 
-mongoose.connect(process.env.mongoDBURL, {
+mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
-},
+  useUnifiedTopology: true
+}),
 () => {
     console.log("mongodb connected successfully!");
-});
+};
 
 
 
