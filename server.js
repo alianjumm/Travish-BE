@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require("mongoose");
 require('dotenv').config();
+const favicon = require('serve-favicon');
 
 var indexRouter = require('./routes/index');
 
@@ -21,7 +22,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
+app.use(express.static(path.join(__dirname, 'build')));
 
 
 const authRoutes = require("./routes/auth");
@@ -37,7 +39,7 @@ const wishListRoute = require('./routes/wishList');
 
 mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 }),
 () => {
     console.log("mongodb connected successfully!");
@@ -62,6 +64,10 @@ app.use(function(err, req, res, next) {
 app.use('/', indexRoute);
 app.use('/', authRoutes);
 app.use('/', wishListRoute);
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 app.listen(PORT, () => console.log(`App is running on ${PORT}`));
 module.exports = app;
