@@ -45,12 +45,13 @@ exports.auth_signin_get =  (req, res) => {
   }
 
 exports.auth_signin_post = async (req, res) => {
+  console.log(req.body)
+  let  {emailAddress, password} = req.body
   
-    let { emailAddress, password} = req.body
-  
+  console.log(emailAddress)
     try{
       let user = await User.findOne({ emailAddress });
-      console.log(user);
+      console.log(user, "hello");
   
       if(!user)
       {

@@ -1,29 +1,11 @@
-const {Vacation} = require("../models/Vacation");
-
-const WishList = require("../models/wishList");
-
+const User = require("../models/User");
+const {Vacation} = require("../models/Vacation")
 
 
-// exports.vacation_create_post = (req, res) => {
-//     console.log(req.body);
+let {WishList} = require("../models/WishList");
 
-//     let vacation = new Vacation(req.body);
 
-//     article.save()
-//     .then(() => {
-        
-//         req.body.wishlist.forEach(wishlist => {
-//             WishList.findById(wishlist, (error, wishList) => {
-//               wishList.vacation.push(vacation);
-//               wishList.save();
-//               });
-//           });
-//           res.json({vacation});
-//     })
-//     .catch((err) => {
-//         console.log(err);
-//     })
-// }
+
 
 exports.vacation_create_post = (req, res) => {
     console.log(req.body);
@@ -41,9 +23,9 @@ exports.vacation_create_post = (req, res) => {
 
 
 exports.vacation_index_get = (req, res) => {
-    Vacation.find().populate('wishlist')
+    Vacation.find()
     .then(vacations => {
-        res.json({vacations}) 
+        res.json(vacations) 
     })
     .catch(err => {
         console.log(err);

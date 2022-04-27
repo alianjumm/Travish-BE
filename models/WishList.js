@@ -1,4 +1,3 @@
-const { accepts } = require("express/lib/request");
 const mongoose = require("mongoose"); 
 
 const wishListSchema = mongoose.Schema({

@@ -27,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const authRoutes = require("./routes/auth");
 const indexRoute = require('./routes/index');
 const wishListRoute = require('./routes/wishList');
+const vacationRoute = require('./routes/vacation');
 
 
 
@@ -35,7 +36,7 @@ const wishListRoute = require('./routes/wishList');
 //   next(createError(404));
 // });
 
-mongoose.connect(process.env.mongoDBURL, {
+mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 },
@@ -59,9 +60,11 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 app.use('/', indexRoute);
 app.use('/', authRoutes);
 app.use('/', wishListRoute);
+app.use('/', vacationRoute);
 
 app.listen(PORT, () => console.log(`App is running on ${PORT}`));
 module.exports = app;
