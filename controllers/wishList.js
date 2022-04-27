@@ -1,3 +1,4 @@
+const { Vacation } = require('../models/Vacation');
 const {WishList} = require('../models/WishList');
 
 exports.wishList_create_post = (req, res) => {
@@ -13,6 +14,15 @@ exports.wishList_create_post = (req, res) => {
         res.send("error");
     });
 };
+
+exports.wishList_addVac_post = async(req,res) => {
+    let wishlist = await WishList.findOne({_id:req.query.wishListID})
+    console.log(wishlist)
+    console.log(req.query.vacationID)
+    wishlist.vacation.push(req.query.vacationID)
+    res.status(200).send("Done")
+}
+
 exports.wishList_index_get = (req, res) => {
     WishList.find()
     .then(wishLists => {
@@ -29,7 +39,7 @@ exports.wishList_show_get = (req, res) => {
 
     WishList.findById(req.query.id).populate('vacation')
     .then(wishList => {
-        res.json({wishList})
+        res.json(wishList)
     })
     .catch(err => {
         console.log(err);
@@ -40,7 +50,7 @@ exports.wishList_delete_get = (req, res) => {
     console.log(req.query.id);
     WishList.findByIdAndDelete(req.query.id)
     .then((wishList) => {
-        res.json({wishList})
+        res.json(wishList)
     })
     .catch(err => {
         console.log(err);

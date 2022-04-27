@@ -29,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 const authRoutes = require("./routes/auth");
 const indexRoute = require('./routes/index');
 const wishListRoute = require('./routes/wishList');
+const vacationRoute = require('./routes/vacation');
 
 
 
@@ -61,9 +62,11 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 app.use('/', indexRoute);
 app.use('/', authRoutes);
 app.use('/', wishListRoute);
+app.use('/', vacationRoute);
 
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
