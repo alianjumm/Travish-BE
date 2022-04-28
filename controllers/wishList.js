@@ -1,6 +1,6 @@
 const { Vacation } = require('../models/Vacation');
 const {WishList} = require('../models/WishList');
-const {ObjectId} = require('mongodb');
+
 
 exports.wishList_create_post = (req, res) => {
     console.log(req.body);
@@ -17,11 +17,11 @@ exports.wishList_create_post = (req, res) => {
 };
 
 exports.wishList_addVac_post = async(req,res) => {
-    let wishlist = await WishList.findById(req.query.wishListID)
-    const x = ObjectId(wishlist)
+    let wishlist = await WishList.findById(req.params.wishListID)
     console.log(wishlist)
-    console.log(req.query.vacationID)
-    wishlist.vacation.push(req.query.vacationID)
+    console.log(req.params.vacationID)
+    wishlist.vacation.push(req.params.vacationID)
+    wishlist.save()
     res.status(200).send("Done")
 }
 
