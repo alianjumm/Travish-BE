@@ -17,7 +17,7 @@ exports.wishList_create_post = (req, res) => {
 };
 
 exports.wishList_addVac_post = async(req,res) => {
-    let wishlist = await WishList.findById({_id:req.query.wishListID})
+    let wishlist = await WishList.findById(req.query.wishListID)
     const x = ObjectId(wishlist)
     console.log(wishlist)
     console.log(req.query.vacationID)
