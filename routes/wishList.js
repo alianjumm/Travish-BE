@@ -12,6 +12,6 @@ router.delete("/wishList/delete",  wishListCntrl.wishList_delete_get);
 router.get("/wishList/edit",  wishListCntrl.wishList_edit_get);
 router.put("/wishList/update",  wishListCntrl.wishList_update_put);
 router.post("/wishList/addVac/:wishListID/:vacationID", wishListCntrl.wishList_addVac_post)
-
+router.delete("/wishList/deleteVac/:wishListID/:vacationID", wishListCntrl.wishList_deleteVac_get)
 
 module.exports = router;

@@ -58,6 +58,23 @@ exports.wishList_delete_get = (req, res) => {
         console.log(err);
     })
 };
+
+exports.wishList_deleteVac_get = (req, res) => {
+    console.log(req.params.vacationID);
+    console.log(req.params.wishListID);
+    let list = WishList.findById(req.params.wishListID)
+    .then((wishList) => {
+        // res.json(wishList)
+        console.log(wishList.vacation)
+    })
+    .catch(err => {
+        console.log(err);
+    })
+};
+
+
+
+
 exports.wishList_show_get = (req, res) => {
     console.log(req.query.id);
 
